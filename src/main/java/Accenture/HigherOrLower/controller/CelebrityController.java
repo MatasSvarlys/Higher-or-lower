@@ -24,4 +24,8 @@ public class CelebrityController {
     public List<Celebrity> getListOfCelebritiesByCountry(@RequestParam String countryCode) {
         return celebrityRepository.findByCountryIgnoreCase(countryCode);
     }
+    @GetMapping("/celebrities/searchCount")
+    public int getGoogleSearchCountByName(@RequestParam String name) {
+        return celebrityRepository.findGoogleSearchCountByName(name);
+    }
 }
