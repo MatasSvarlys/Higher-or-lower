@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface CelebrityRepository extends JpaRepository<Celebrity, Long> {
     List<Celebrity> findByCountryIgnoreCase(String countryCode);
+    int findGoogleSearchCountByName(String name);
 }

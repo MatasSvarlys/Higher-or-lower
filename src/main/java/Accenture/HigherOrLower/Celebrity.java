@@ -22,6 +22,7 @@ public class Celebrity {
         this.googleSearchCount = googleSearchCount;
     }
 
+
     public int getId() {
         return id;
     }
