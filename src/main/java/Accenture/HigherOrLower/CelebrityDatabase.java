@@ -1,3 +1,7 @@
+package Accenture.HigherOrLower;
+
+import Accenture.HigherOrLower.Celebrity;
+import Accenture.HigherOrLower.repository.CelebrityRepository;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -52,7 +56,7 @@ public class CelebrityDatabase {
                 Celebrity celebrity = new Celebrity(name, country, googleSearchCount);
                 celebrities.add(celebrity);
             }
-        } catch (IOException | EncryptedDocumentException | InvalidFormatException e) {
+        } catch (IOException | EncryptedDocumentException /*| InvalidFormatException*/ e) {
             e.printStackTrace(); // Handle exceptions appropriately
         }
 
