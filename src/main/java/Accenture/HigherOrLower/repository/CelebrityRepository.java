@@ -13,4 +13,6 @@ public interface CelebrityRepository extends JpaRepository<Celebrity, Long> {
     List<Celebrity> findByCountryIgnoreCase(String countryCode);
     @Query("SELECT c.googleSearchCount FROM Celebrity c WHERE c.name = :name")
     int findGoogleSearchCountByName(@Param("name") String name);
+    @Query("SELECT c FROM Celebrity c WHERE c.id = :id")
+    Celebrity findCelebrityById(@Param("id") int id);
 }
