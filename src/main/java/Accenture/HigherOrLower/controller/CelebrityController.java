@@ -1,8 +1,9 @@
 package Accenture.HigherOrLower.controller;
 
-import Accenture.HigherOrLower.Celebrity;
+import Accenture.HigherOrLower.model.Celebrity;
 import Accenture.HigherOrLower.repository.CelebrityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,17 +15,18 @@ import java.util.Random;
 @RequestMapping("/api")
 public class CelebrityController {
 
-    private final CelebrityRepository celebrityRepository;
+    @Autowired
+    CelebrityRepository celebrityRepository;
     private final int maxLt = 44;
     private final int maxLv = 47;
     private int amountOfUnusedLt = maxLt;
     private int amountOfUnusedLv = maxLv;
     private boolean[] usedLtId = new boolean[maxLt];
     private boolean[] usedLvId = new boolean[maxLv];
-    @Autowired
+    /*@Autowired
     public CelebrityController(CelebrityRepository celebrityRepository) {
         this.celebrityRepository = celebrityRepository;
-    }
+    }*/
 
     @GetMapping("/celebrities")
     public List<Celebrity> getListOfCelebritiesByCountry(@RequestParam String countryCode) {
@@ -79,5 +81,10 @@ public class CelebrityController {
             return celebrityRepository.findCelebrityById(celebrityId1);
         else
             return celebrityRepository.findCelebrityById(celebrityId2);
+    }
+    @GetMapping("/test")
+    public String getTest(Model model){
+        model.addAttribute("celebrity", celebrityRepository.findAll());
+        return "test";
     }
 }

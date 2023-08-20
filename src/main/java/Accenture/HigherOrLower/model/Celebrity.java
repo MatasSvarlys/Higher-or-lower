@@ -1,16 +1,17 @@
-package Accenture.HigherOrLower;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package Accenture.HigherOrLower.model;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "celebrities", schema = "public")
 public class Celebrity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="name")
     private String name;
+    @Column(name="country")
     private String country;
+    @Column(name="googlesearchcount")
     private int googleSearchCount;
 
     public Celebrity() {

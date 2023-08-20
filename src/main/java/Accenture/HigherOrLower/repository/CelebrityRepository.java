@@ -1,6 +1,6 @@
 package Accenture.HigherOrLower.repository;
 
-import Accenture.HigherOrLower.Celebrity;
+import Accenture.HigherOrLower.model.Celebrity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +15,5 @@ public interface CelebrityRepository extends JpaRepository<Celebrity, Long> {
     int findGoogleSearchCountByName(@Param("name") String name);
     @Query("SELECT c FROM Celebrity c WHERE c.id = :id")
     Celebrity findCelebrityById(@Param("id") int id);
+    List<Celebrity> findAll();
 }
