@@ -27,7 +27,7 @@
     height: 100vh;
     background-image: url('images/bralukai.jpg');
     background-size: cover;
-
+    background-position: center;
   }
 
   .known-celebrity{

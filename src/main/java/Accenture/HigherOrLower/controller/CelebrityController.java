@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/")
 public class CelebrityController {
 
     @Autowired
@@ -110,7 +110,10 @@ public class CelebrityController {
         int rand_int2 = rand.nextInt(92);
         model.addAttribute("celebrity", celebrityRepository.findCelebrityById(rand_int1));
         model.addAttribute("test", celebrityRepository.findCelebrityById(rand_int2));
+
+        int x = 10;
         return "choicepage";
     }
+
 
 }

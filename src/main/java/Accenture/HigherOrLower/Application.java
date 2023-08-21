@@ -14,9 +14,10 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+
 	}
 
-	@Bean
+	/*@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
@@ -26,5 +27,6 @@ public class Application {
 						.allowedMethods("GET", "POST"); // Add allowed HTTP methods
 			}
 		};
-	}
+	}*/
+
 }
