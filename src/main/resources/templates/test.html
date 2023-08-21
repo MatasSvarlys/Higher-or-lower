@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Tests</title>
+    <link th:href="@{/styles/cssandjs/homepage.css}" rel="stylesheet" />
 </head>
 <body>
 <h1>Test</h1>
@@ -10,6 +11,9 @@
 <ul>
     <li th:each = "celebrity : ${celebrity}">
         <span th:text="${celebrity.name}"></span>
+        <span th:text="${celebrity.id}"></span>
+        <span th:text="${celebrity.googleSearchCount}"></span>
+        <span th:text="${celebrity.country}"></span>
 
     </li>
 </ul>

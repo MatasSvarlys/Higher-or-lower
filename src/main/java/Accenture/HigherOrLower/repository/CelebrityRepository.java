@@ -16,4 +16,5 @@ public interface CelebrityRepository extends JpaRepository<Celebrity, Long> {
     @Query("SELECT c FROM Celebrity c WHERE c.id = :id")
     Celebrity findCelebrityById(@Param("id") int id);
     List<Celebrity> findAll();
+    //public Celebrity findCelebrityById(int id);
 }
