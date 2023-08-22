@@ -3,16 +3,16 @@ package Accenture.HigherOrLower.controller;
 import Accenture.HigherOrLower.model.Celebrity;
 import Accenture.HigherOrLower.repository.CelebrityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-@RestController
-@RequestMapping("/api")
+@Controller
+@RequestMapping("/")
 public class CelebrityController {
 
     @Autowired
@@ -73,19 +73,74 @@ public class CelebrityController {
     }
 
     @GetMapping("gameLogic/compareCelebrities")
-    public Celebrity compareTwoCelebrities(int celebrityId1, int celebrityId2){
-        int searchCount1 = celebrityRepository.findCelebrityById(celebrityId1).getGoogleSearchCount();
-        int searchCount2 = celebrityRepository.findCelebrityById(celebrityId2).getGoogleSearchCount();
+    public String compareTwoCelebrities(Model model){
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(92);
+        int rand_int2 = rand.nextInt(92);
+        int searchCount1 = celebrityRepository.findCelebrityById(rand_int1).getGoogleSearchCount();
+        int searchCount2 = celebrityRepository.findCelebrityById(rand_int2).getGoogleSearchCount();
 
         if(searchCount1 > searchCount2)
-            return celebrityRepository.findCelebrityById(celebrityId1);
+            model.addAttribute("celebrity", celebrityRepository.findCelebrityById(rand_int1));
         else
-            return celebrityRepository.findCelebrityById(celebrityId2);
+            model.addAttribute("celebrity", celebrityRepository.findCelebrityById(rand_int2));
+
+        return "compare";
     }
     @GetMapping("/test")
     public String getTest(Model model){
         model.addAttribute("celebrity", celebrityRepository.findAll());
         return "test";
+    }
+    //Celebrity c = celebrityRepository.findCelebrityByID(1);
+    /*@GetMapping("/maybe")
+    public String getMaybe(Model model){
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(92);
+        int rand_int2 = rand.nextInt(92);
+        model.addAttribute("celebrity", celebrityRepository.findCelebrityById(rand_int1));
+        model.addAttribute("test", celebrityRepository.findCelebrityById(rand_int2));
+        return "maybe";
+    }*/
+    @GetMapping("/choice")
+    public String getChoice(Model model){
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(92);
+        model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(rand_int1));
+        if(Objects.equals(celebrityRepository.findCelebrityById(rand_int1).getCountry(), "LV")){
+            List<Celebrity> celebritiesLT = celebrityRepository.findCelebrityByCountry("LT");
+            int rand_intLT = rand.nextInt(40);
+            model.addAttribute("celebrityRight", celebritiesLT.get(rand_intLT));
+        }
+        else{
+            List<Celebrity> celebritiesLV = celebrityRepository.findCelebrityByCountry("LV");
+            int rand_intLV = rand.nextInt(40);
+            model.addAttribute("celebrityRight", celebritiesLV.get(rand_intLV));
+        }
+
+        //model.addAttribute("test", celebrityRepository.findCelebrityById(rand_int2));
+
+        return "choice-page";
+    }
+    @GetMapping("/game-board/{id}")
+    public String getGameBoard(Model model,  @PathVariable(name="id") int id){
+        Random rand = new Random();
+        model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
+        if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
+            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
+            int rand_intLT = rand.nextInt(45);
+            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLT));
+            model.addAttribute("celebrityRightID", rand_intLT);
+        }
+        else{
+            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LV");
+            int rand_intLV = rand.nextInt(45);
+            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLV));
+            model.addAttribute("celebrityRightID", rand_intLV);
+        }
+
+
+        return "game-board";
     }
 
 }

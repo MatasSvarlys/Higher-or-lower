@@ -17,4 +17,5 @@ public interface CelebrityRepository extends JpaRepository<Celebrity, Long> {
     Celebrity findCelebrityById(@Param("id") int id);
     List<Celebrity> findAll();
     //public Celebrity findCelebrityById(int id);
+    List<Celebrity> findCelebrityByCountry(String country);
 }

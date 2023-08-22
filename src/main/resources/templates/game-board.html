@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/styles/cssandjs/choice.css}" rel="stylesheet" />
   </head>
-  
+
   <body>
     <div class="split left">
       <div class="background-container-left">
         <div class="known-celebrity">
           <div id="known-celebrity-name"></div>
-          <li th:each = "celebrity : ${celebrity}">
-          <span th:text="${celebrity.name}"></span>
+          <li th:each = "celebrityLeft : ${celebrityLeft}">
+          <span th:text="${celebrityLeft.name}"></span>
 
           <div id="known-celebrity-country"></div>
 
           <div id="known-celebrity-search-count"></div>
-            <span th:text="${celebrity.googleSearchCount}"></span>
+            <span th:text="${celebrityLeft.googleSearchCount}"></span>
           <li/>
 
         </div>
@@ -29,17 +29,20 @@
         <div class="not-known-celebrity">
             <div class="celebrity-info">
               <div id="not-known-celebrity-name"></div>
-              <li th:each = "test : ${test}">
-                <span th:text="${test.name}"></span>
+              <li th:each = "celebrityRight : ${celebrityRight}">
+                <span th:text="${celebrityRight.name}"></span>
                 <br>
-
-                <span th:text="${test.googleSearchCount}"></span>
+                <span th:text="${celebrityRight.id}"></span>
+                <br>
+                <span th:text="${celebrityRight.googleSearchCount}"></span>
               <li/>
               <div id="not-known-celebrity-country"></div>
             </div>
+
           <div class="button-container">
-            <a class="buttons">Higher</a>
-            <a class="buttons">Lower</a>
+            <button th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Redirect</button>
+            <button onclick="href = '../game-board/'+${celebrityRight.id};" id="Higher" class="button-link">Higher</button>
+            <button onclick="href = '../game-board/'+${celebrityRight.id};" id="Lower" class="button-link">Lower</button>
           </div>
         </div>
       </div>
