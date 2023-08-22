@@ -125,18 +125,36 @@ public class CelebrityController {
     @GetMapping("/game-board/{id}")
     public String getGameBoard(Model model,  @PathVariable(name="id") int id){
         Random rand = new Random();
+        Boolean correctAnswer = false;
         model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
         if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
             List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
             int rand_intLT = rand.nextInt(45);
             model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLT));
             model.addAttribute("celebrityRightID", rand_intLT);
+            if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() > celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
+                correctAnswer = true;
+                model.addAttribute("answer", correctAnswer);
+            }
+            else {
+                correctAnswer = false;
+            }
+
+
         }
         else{
+
             List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LV");
             int rand_intLV = rand.nextInt(45);
             model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLV));
             model.addAttribute("celebrityRightID", rand_intLV);
+            if (celebrityRepository.findCelebrityById(rand_intLV).getGoogleSearchCount() > celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
+                correctAnswer = true;
+                model.addAttribute("answer", correctAnswer);
+            }
+            else {
+                correctAnswer = false;
+            }
         }
 
 

@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link th:href="@{/styles/cssandjs/homepage.css}" rel="stylesheet" />
-    </head>
-    <body>
-        <div  id="root">
-            <section class="homepage-chooser">
-            <h1 class="bigger-text">The Higher or Lower Game<br>Bralukai edition</h1>
-            <h2 class="smaller-text"><strong>What gets Googled more?</strong></h2>
-                
-            <div class="button-container">
-                <a onclick="location.href = '../choice';" id="play" class="button-link">Play</button></a>
-                <a href="#scoreboard-popup" class="button-link">View Scoreboard</a>
-            </div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/styles/cssandjs/homepage.css}" rel="stylesheet" />
+</head>
+<body>
+<div id="root">
+    <section class="homepage-chooser">
+        <h1 class="bigger-text">The Higher or Lower Game<br>Bralukai edition</h1>
+        <h2 class="smaller-text"><strong>What gets Googled more?</strong></h2>
+
+        <div class="button-container">
+            <a onclick="playRandomGame();" id="play" class="button-link">Play</a>
+            <a href="#scoreboard-popup" class="button-link">View Scoreboard</a>
         </div>
-        <div id="scoreboard-popup" class="popup">
-            <div class="popup-content">
-                <h2>Scoreboard</h2>
-                <!-- Your scoreboard content here -->
-                <a href="#" class="close-popup">Close</a>
-            </div>
-        </div>
-    </body>
+    </section>
+</div>
+<div id="scoreboard-popup" class="popup">
+    <div class="popup-content">
+        <h2>Scoreboard</h2>
+        <!-- Your scoreboard content here -->
+        <a href="#" class="close-popup">Close</a>
+    </div>
+</div>
+<script>
+    function playRandomGame() {
+        // Generate a random number between 1 and 90
+        var randomNumber = Math.floor(Math.random() * 90) + 1;
+
+        // Construct the new URL
+        var newURL = '/game-board/' + randomNumber;
+
+        // Redirect to the new URL
+        location.href = newURL;
+    }
+</script>
+</body>
 </html>
