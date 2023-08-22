@@ -17,8 +17,8 @@ public class CelebrityController {
 
     @Autowired
     CelebrityRepository celebrityRepository;
-    private final int maxLt = 46;
-    private final int maxLv = 46;
+    private final int maxLt = 48;
+    private final int maxLv = 48;
     private int amountOfUnusedLt = maxLt;
     private int amountOfUnusedLv = maxLv;
     private boolean[] usedLtId = new boolean[maxLt];
