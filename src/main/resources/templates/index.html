@@ -14,6 +14,9 @@
         <div class="button-container">
             <a onclick="playRandomGame();" id="play" class="button-link">Play</a>
             <a href="#scoreboard-popup" class="button-link">View Scoreboard</a>
+            <a href="#create-profile-popup" class="button-link">Register</a>
+            <a href="#login-popup" class="button-link">Log in</a>
+            <a href="#logout-popup" class="button-link">Log out</a>
         </div>
     </section>
 </div>
@@ -41,6 +44,43 @@
             </tr>
             </tbody>
         </table>
+        <a href="#" class="close-popup">Close</a>
+    </div>
+</div>
+<div id="create-profile-popup" class="popup">
+    <div class="popup-content">
+        <h2>Create Profile</h2>
+        <form th:action="@{/create-profile}" method="post">
+            <input type="text" name="name" placeholder="Name" required />
+            <input type="number" name="age" placeholder="Age" min="7" required />
+            <input type="password" name="password" placeholder="Password" minlength="8" required />
+            <button type="submit" class="button-link">Create Profile</button>
+        </form>
+        <p th:text="${createProfileMessage}" class="feedback-message"></p>
+        <a href="#" class="close-popup">Close</a>
+    </div>
+</div>
+<div id="login-popup" class="popup">
+    <div class="popup-content">
+        <h2>Log In</h2>
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="name" placeholder="Name" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit" class="button-link">Log In</button>
+        </form>
+        <p th:text="${loginMessage}" class="feedback-message"></p>
+        <a href="#" class="close-popup">Close</a>
+    </div>
+</div>
+<div id="logout-popup" class="popup">
+    <div class="popup-content">
+        <h2>Log Out</h2>
+        <p>Submit your score to the leaderboard before logging out:</p>
+        <form th:action="@{/submit-score}" method="post">
+            <input type="hidden" name="score" th:value="${currentScore}" />
+            <button type="submit" class="button-link">Submit Score</button>
+        </form>
+        <p th:text="${submitScoreMessage}" class="feedback-message"></p>
         <a href="#" class="close-popup">Close</a>
     </div>
 </div>
