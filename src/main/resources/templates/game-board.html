@@ -40,6 +40,7 @@
           <div class="button-container">
             <div th:if="${answer}">
               <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Higher</a>
+
             </div>
             <div th:unless="${answer}">
               <a class="buttons" onclick="location.href = '../';">Higher</a>

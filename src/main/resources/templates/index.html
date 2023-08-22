@@ -20,10 +20,32 @@
 <div id="scoreboard-popup" class="popup">
     <div class="popup-content">
         <h2>Scoreboard</h2>
-        <!-- Your scoreboard content here -->
+        <table class="scoreboard-table">
+            <thead>
+            <tr>
+                <th class="left1">Name</th>
+                <th class="right">Highscore</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="player, playerStat : ${Score}">
+                <td class="left1" th:text="${player.name}"></td>
+                <td class="right">
+                    <span th:text="${player.highscore}">&nbsp;</span>
+                </td>
+                <td class="left2">
+                    <span th:if="${playerStat.index == 0}" class="emoji">🥇</span>
+                    <span th:if="${playerStat.index == 1}" class="emoji">🥈</span>
+                    <span th:if="${playerStat.index == 2}" class="emoji">🥉</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <a href="#" class="close-popup">Close</a>
     </div>
 </div>
+
+
 <script>
     function playRandomGame() {
         // Generate a random number between 1 and 96
@@ -34,6 +56,7 @@
 
         // Redirect to the new URL
         location.href = newURL;
+
     }
 </script>
 </body>

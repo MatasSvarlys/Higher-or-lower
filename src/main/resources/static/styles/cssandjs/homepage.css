@@ -57,21 +57,6 @@ button {
   display: block;
 }
 
-.popup-content {
-  background-color: white;
-  width: 70%;
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
-.close-popup {
-  display: block;
-  margin-top: 10px;
-}
-
 /* Buttons */
 .button-container {
   text-align: center; 
@@ -96,4 +81,59 @@ button {
 .button-link:hover {
   background-color: black;
   color: white;
+}
+/* Center the popup content */
+.popup-content {
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Add styles to the close button */
+.close-popup {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.close-popup:hover {
+    background-color: #d32f2f;
+}
+
+/* Align the player names to the left */
+.left1 {
+    text-align: left;
+}
+.left2 {
+    text-align: left;
+}
+
+/* Align the highscores to the right */
+.right {
+    text-align: right;
+}
+
+/* Style the emoji */
+.emoji {
+    font-size: 1.2em;
+}
+
+/* Vertically align the highscore and emoji */
+.highscore {
+    horizontal-align: middle;
+}
+
+
+/* Set table layout to fixed */
+.scoreboard-table {
+    text-align: center;
+    table-layout: fixed;
+    width: 100%;
 }

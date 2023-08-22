@@ -17,8 +17,8 @@ public class CelebrityController {
 
     @Autowired
     CelebrityRepository celebrityRepository;
-    private final int maxLt = 44;
-    private final int maxLv = 47;
+    private final int maxLt = 48;
+    private final int maxLv = 48;
     private int amountOfUnusedLt = maxLt;
     private int amountOfUnusedLv = maxLv;
     private boolean[] usedLtId = new boolean[maxLt];
@@ -72,6 +72,7 @@ public class CelebrityController {
     public String getGameBoard(Model model,  @PathVariable(name="id") int id){
         Random rand = new Random();
         Boolean correctAnswer = false;
+        int correctscore = 0;
         model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
         if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
             List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
@@ -81,6 +82,7 @@ public class CelebrityController {
             if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
                 correctAnswer = true;
                 model.addAttribute("answer", correctAnswer);
+
             }
             else {
                 correctAnswer = false;
