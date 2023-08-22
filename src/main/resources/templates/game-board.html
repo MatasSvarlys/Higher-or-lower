@@ -9,6 +9,7 @@
   <body>
     <div class="split left">
       <div class="background-container-left">
+        <img class="celebrity-image" th:src="@{/styles/cssandjs/Images/{id}.jpg(id=${celebrityLeft.id})}" alt="Celebrity Image">
         <div class="known-celebrity">
           <div id="known-celebrity-name"></div>
           <li th:each = "celebrityLeft : ${celebrityLeft}">
@@ -26,6 +27,7 @@
 
     <div class="split right">
       <div class="background-container-right">
+        <img class="celebrity-image" th:src="@{/styles/cssandjs/Images/{id}.jpg(id=${celebrityRight.id})}" alt="Celebrity Image">
         <div class="not-known-celebrity">
             <div class="celebrity-info">
               <div id="not-known-celebrity-name"></div>
