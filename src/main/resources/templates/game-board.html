@@ -31,18 +31,24 @@
               <div id="not-known-celebrity-name"></div>
               <li th:each = "celebrityRight : ${celebrityRight}">
                 <span th:text="${celebrityRight.name}"></span>
-                <br>
-                <span th:text="${celebrityRight.id}"></span>
-                <br>
-                <span th:text="${celebrityRight.googleSearchCount}"></span>
               <li/>
               <div id="not-known-celebrity-country"></div>
             </div>
 
           <div class="button-container">
-            <button th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Redirect</button>
-            <button onclick="href = '../game-board/'+${celebrityRight.id};" id="Higher" class="button-link">Higher</button>
-            <button onclick="href = '../game-board/'+${celebrityRight.id};" id="Lower" class="button-link">Lower</button>
+            <div th:if="${answer}">
+              <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Higher</a>
+            </div>
+            <div th:unless="${answer}">
+              <a class="buttons" onclick="location.href = '../';">Higher</a>
+            </div>
+            <div class="button-container">
+              <div th:if="${answer}">
+                <a class="buttons" onclick="location.href = '../';">Lower</a>
+              </div>
+              <div th:unless="${answer}">
+                <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Lower</a>
+              </div>
           </div>
         </div>
       </div>
