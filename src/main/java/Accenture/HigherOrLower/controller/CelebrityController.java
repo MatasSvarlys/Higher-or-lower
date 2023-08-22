@@ -129,10 +129,10 @@ public class CelebrityController {
         model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
         if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
             List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
-            int rand_intLT = rand.nextInt(45);
+            int rand_intLT = rand.nextInt(90);
             model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLT));
             model.addAttribute("celebrityRightID", rand_intLT);
-            if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() > celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
+            if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
                 correctAnswer = true;
                 model.addAttribute("answer", correctAnswer);
             }
@@ -145,10 +145,10 @@ public class CelebrityController {
         else{
 
             List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LV");
-            int rand_intLV = rand.nextInt(45);
+            int rand_intLV = rand.nextInt(90);
             model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLV));
             model.addAttribute("celebrityRightID", rand_intLV);
-            if (celebrityRepository.findCelebrityById(rand_intLV).getGoogleSearchCount() > celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
+            if (celebrityRepository.findCelebrityById(rand_intLV).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
                 correctAnswer = true;
                 model.addAttribute("answer", correctAnswer);
             }
