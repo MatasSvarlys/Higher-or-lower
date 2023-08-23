@@ -15,8 +15,12 @@ public class Player {
     private String name;
     @Column(name="highscore")
     private int highscore;
+    @Column(name="password")
+    private String password;
     @Transient
     private List<Integer> usedIdsInGame;
+    @Transient
+    private int currentScore;
 
     public Player() {
     }
@@ -56,5 +60,13 @@ public class Player {
 
     public void setHighscore(int highscore) {
         this.highscore = highscore;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

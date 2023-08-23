@@ -13,6 +13,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("SELECT p FROM Player p ORDER BY p.highscore DESC LIMIT 5")
     List<Player> getTop5Players();
 
+    Player findByName(String name);
 //    @Query(value = "SELECT * FROM players OFFSET floor(random() * (SELECT COUNT(*) FROM players)) LIMIT 1", nativeQuery = true)
 //        Player getRandomPlayer();
 
