@@ -12,11 +12,14 @@
         <h2 class="smaller-text"><strong>What gets Googled more?</strong></h2>
 
         <div class="button-container">
-            <a onclick="playRandomGame();" id="play" class="button-link">Play</a>
+
+            <a th:if="${loggedIn}" onclick="playRandomGame();" id="play" class="button-link">Play</a>
+            <a th:if="${!loggedIn}" href="/login" class="button-link">Log in first!</a>
+            <a th:if="${loggedIn}" href="/logout" class="button-link">Logout</a>
             <a href="#scoreboard-popup" class="button-link">View Scoreboard</a>
-            <a href="#create-profile-popup" class="button-link">Register</a>
-            <a href="#login-popup" class="button-link">Log in</a>
-            <a href="#logout-popup" class="button-link">Log out</a>
+<!--            <a href="#create-profile-popup" class="button-link">Register</a>-->
+<!--            <a href="#login-popup" class="button-link">Log in</a>-->
+<!--            <a href="#logout-popup" class="button-link">Log out</a>-->
         </div>
     </section>
 </div>
