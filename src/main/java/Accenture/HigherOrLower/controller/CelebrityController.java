@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -85,6 +86,10 @@ public class CelebrityController {
         Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
         model.addAttribute("celebrityLeft", celebrityLeft);
 
+        List<Celebrity> usedCelebrities = new ArrayList<>(); // List to track used celebrities
+        usedCelebrities.add(celebrityLeft); // Add celebrityLeft to the usedCelebrities list
+
+        // Fetch candidates based on the country of celebrityLeft
         List<Celebrity> candidates;
         if (!Objects.equals(celebrityLeft.getCountry(), "LT")) {
             candidates = celebrityRepository.findCelebrityByCountry("LT");
@@ -92,20 +97,28 @@ public class CelebrityController {
             candidates = celebrityRepository.findCelebrityByCountry("LV");
         }
 
-        int rand_intRight = rand.nextInt(candidates.size());
-        Celebrity celebrityRight = candidates.get(rand_intRight);
+        // Remove used celebrities from candidates list
+        candidates.removeAll(usedCelebrities);
 
-        model.addAttribute("celebrityRight", celebrityRight);
-        model.addAttribute("celebrityRightID", celebrityRight.getId());
-
-        if (celebrityRight.getGoogleSearchCount() >= celebrityLeft.getGoogleSearchCount()) {
-            correctAnswer = true;
-            model.addAttribute("answer", correctAnswer);
+        if (candidates.isEmpty()) {
+            // All available candidates are used, handle accordingly
         } else {
-            correctAnswer = false;
+            int rand_intRight = rand.nextInt(candidates.size());
+            Celebrity celebrityRight = candidates.get(rand_intRight);
+
+            model.addAttribute("celebrityRight", celebrityRight);
+            model.addAttribute("celebrityRightID", celebrityRight.getId());
+
+            if (celebrityRight.getGoogleSearchCount() >= celebrityLeft.getGoogleSearchCount()) {
+                correctAnswer = true;
+                model.addAttribute("answer", correctAnswer);
+            } else {
+                correctAnswer = false;
+            }
         }
 
         return "game-board";
     }
+
 
 }
