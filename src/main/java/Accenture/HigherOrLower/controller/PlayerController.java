@@ -42,13 +42,10 @@ public class PlayerController {
     @PostMapping("/signup")
     public String signUp(@RequestParam String name, @RequestParam String password, @RequestParam int age) {
         // Validate the input if needed
-        if (name == null || name.isEmpty() || password == null || password.isEmpty()) {
+        if (name == null || name.isEmpty() || password == null || password.isEmpty() || age < 7 || age == 0) {
             return "signup";
         }
 
-        if (age < 7) {
-            return "signup";
-        }
         // Create a new user entity
         Player newUser = new Player();
         newUser.setName(name);
