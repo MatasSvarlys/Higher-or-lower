@@ -108,7 +108,7 @@
             border-image: linear-gradient(to bottom, #FCB913, #FCB913 33.33%, #006A44 33.33%, #006A44 66.66%, #C2272F 66.66%);
             border-image-slice: 1;
             box-sizing: border-box;
-            outline: 3px solid black;
+            outline: 4px solid black;
 }
 
         .border-lv {
@@ -116,5 +116,5 @@
             border-image: linear-gradient(to bottom, #9E3039, #9E3039 40%, #FEFEFE 40%, #FEFEFE 60%, #9E3039 60%);
             border-image-slice: 1;
             box-sizing: border-box;
-            outline: 3px solid black;
+            outline: 4px solid black;
 }
