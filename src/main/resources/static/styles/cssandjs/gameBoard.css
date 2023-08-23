@@ -41,7 +41,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -1; /* Send the image behind the content */
+       z-index: -1;
   }
 
   .known-celebrity{
@@ -102,3 +102,19 @@
           background-color: black;
           color: white;
         }
+
+        .border-lt {
+            border: 35px solid transparent;
+            border-image: linear-gradient(to bottom, #FCB913, #FCB913 33.33%, #006A44 33.33%, #006A44 66.66%, #C2272F 66.66%);
+            border-image-slice: 1;
+            box-sizing: border-box;
+            outline: 3px solid black;
+}
+
+        .border-lv {
+            border: 35px solid transparent;
+            border-image: linear-gradient(to bottom, #9E3039, #9E3039 40%, #FEFEFE 40%, #FEFEFE 60%, #9E3039 60%);
+            border-image-slice: 1;
+            box-sizing: border-box;
+            outline: 3px solid black;
+}
