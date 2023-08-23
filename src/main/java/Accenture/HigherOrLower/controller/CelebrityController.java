@@ -69,42 +69,33 @@ public class CelebrityController {
     }
 
     @GetMapping("/game-board/{id}")
-    public String getGameBoard(Model model,  @PathVariable(name="id") int id){
+    public String getGameBoard(Model model, @PathVariable(name="id") int id) {
         Random rand = new Random();
         Boolean correctAnswer = false;
         int correctscore = 0;
-        model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
-        if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
-            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
-            int rand_intLT = rand.nextInt(96);
-            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLT));
-            model.addAttribute("celebrityRightID", rand_intLT);
-            if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
-                correctAnswer = true;
-                model.addAttribute("answer", correctAnswer);
 
-            }
-            else {
-                correctAnswer = false;
-            }
+        Celebrity celebrityLeft = celebrityRepository.findCelebrityById(id);
+        model.addAttribute("celebrityLeft", celebrityLeft);
 
-
-        }
-        else{
-
-            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LV");
-            int rand_intLV = rand.nextInt(96);
-            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLV));
-            model.addAttribute("celebrityRightID", rand_intLV);
-            if (celebrityRepository.findCelebrityById(rand_intLV).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
-                correctAnswer = true;
-                model.addAttribute("answer", correctAnswer);
-            }
-            else {
-                correctAnswer = false;
-            }
+        List<Celebrity> candidates;
+        if (!Objects.equals(celebrityLeft.getCountry(), "LT")) {
+            candidates = celebrityRepository.findCelebrityByCountry("LT");
+        } else {
+            candidates = celebrityRepository.findCelebrityByCountry("LV");
         }
 
+        int rand_intRight = rand.nextInt(candidates.size());
+        Celebrity celebrityRight = candidates.get(rand_intRight);
+
+        model.addAttribute("celebrityRight", celebrityRight);
+        model.addAttribute("celebrityRightID", celebrityRight.getId());
+
+        if (celebrityRight.getGoogleSearchCount() >= celebrityLeft.getGoogleSearchCount()) {
+            correctAnswer = true;
+            model.addAttribute("answer", correctAnswer);
+        } else {
+            correctAnswer = false;
+        }
 
         return "game-board";
     }
