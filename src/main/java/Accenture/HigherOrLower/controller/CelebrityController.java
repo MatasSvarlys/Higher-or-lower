@@ -83,6 +83,12 @@ public class CelebrityController {
         Random rand = new Random();
         Boolean correctAnswer = false;
 
+        if (!Objects.equals(celebrityRepository.findCelebrityById(cid).getCountry(), "LT")) {
+            gameServiceImpl.addLVIdToExclude(cid);
+        } else {
+            gameServiceImpl.addLTIdToExclude(cid);
+        }
+
         model.addAttribute("score", gameServiceImpl.getCurrentScore());
 
         gameServiceImpl.incrementCurrentScore();
@@ -103,9 +109,9 @@ public class CelebrityController {
         // Fetch candidates based on the country of celebrityLeft
         List<Celebrity> candidates;
         if (!Objects.equals(celebrityLeft.getCountry(), "LT")) {
-            candidates = celebrityRepository.findCelebrityByCountry("LT");
+            candidates = gameServiceImpl.getAllLT();
         } else {
-            candidates = celebrityRepository.findCelebrityByCountry("LV");
+            candidates = gameServiceImpl.getAllLV();
         }
 
         // Remove used celebrities from candidates list
@@ -116,6 +122,17 @@ public class CelebrityController {
         } else {
             int rand_intRight = rand.nextInt(candidates.size());
             Celebrity celebrityRight = candidates.get(rand_intRight);
+
+            if (!Objects.equals(celebrityLeft.getCountry(), "LT"))
+            {
+                model.addAttribute("celebrityRight", gameServiceImpl.getRandomLVCelebrity());
+                model.addAttribute("celebrityRightID", gameServiceImpl.getRandomLVCelebrity());
+            } else
+            {
+                model.addAttribute("celebrityRight", gameServiceImpl.getRandomLTCelebrity());
+                model.addAttribute("celebrityRightID", gameServiceImpl.getRandomLTCelebrity());
+
+            }
 
             model.addAttribute("celebrityRight", celebrityRight);
             model.addAttribute("celebrityRightID", celebrityRight.getId());
