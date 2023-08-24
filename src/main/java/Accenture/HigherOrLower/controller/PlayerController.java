@@ -20,17 +20,35 @@ public class PlayerController {
     @Autowired
     private GameServiceImpl gameServiceImpl;
 
+    private Player loggedInPlayer;
+
     private boolean loggedIn;
     @GetMapping("/")
     public String showTopScores(Model model) {
         List<Player> topScores = playerRepository.getTop5Players();
         model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("Score", topScores);
-
+        if (loggedInPlayer != null) {
+            model.addAttribute("Id", loggedInPlayer.getId());
+        }
+        else {
+            model.addAttribute("Id", (-1));
+        }
         gameServiceImpl.createGame();
 
         return "index";
     }
+//    @GetMapping("/{pid}")
+//    public String getHomePage(Model model,@PathVariable(name="pid") int pid) {
+//        List<Player> topScores = playerRepository.getTop5Players();
+//        model.addAttribute("loggedIn", loggedIn);
+//        model.addAttribute("Score", topScores);
+//        model.addAttribute("Id", pid);
+//
+//        gameServiceImpl.createGame();
+//
+//        return "index";
+//    }
 
     @GetMapping("/login")
     public String loginValidation(Model model){
@@ -79,6 +97,7 @@ public class PlayerController {
         }
 
         loggedIn = true;
+        loggedInPlayer = player;
         return "redirect:/";
     }
 
@@ -86,24 +105,25 @@ public class PlayerController {
     public String logOut() {
         // Reset the loggedIn state
         loggedIn = false;
+        loggedInPlayer = null;
 
         // Redirect to the login page or home page
         return "redirect:/"; // or another appropriate URL
     }
 
     @GetMapping("/end/{pid}")
-    public String getEnd(Model model,@PathVariable(name="pid") int pid) {
-
-
+    public String getEnd(Model model, @PathVariable(name = "pid") int pid) {
         Player player = playerRepository.findById(pid);
-        player.setCurrentScore(gameServiceImpl.getCurrentScore());
-        model.addAttribute("player", playerRepository.findById(pid));
-        //playerRepository.findById(pid).resetCurrentScore();//-1
+        player.setCurrentScore(gameServiceImpl.getCurrentScore() - 1);
 
+        if (gameServiceImpl.getCurrentScore() > player.getHighscore()) {
+            player.setHighscore(player.getCurrentScore());
 
+            // Save the updated player object back to the database
+            playerRepository.save(player);
+        }
 
-
-
+        model.addAttribute("player", player);
         return "end";
     }
 }

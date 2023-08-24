@@ -19,8 +19,7 @@ public class Player {
     private String password;
     @Transient
     private List<Integer> usedIdsInGame;
-    //@Transient
-    @Column(name = "currentscore")
+    @Transient
     private int currentScore;
 
     public Player() {
@@ -42,6 +41,9 @@ public class Player {
         this.id = id;
         this.age = age;
         this.name = name;
+    }
+    public int getId() {
+        return id;
     }
 
     public void putIdIntoUsed(int celebrityId){

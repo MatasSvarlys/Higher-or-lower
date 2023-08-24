@@ -13,7 +13,7 @@
 
         <div class="button-container">
 
-            <a th:if="${loggedIn}" onclick="playRandomGame();" id="play" class="button-link">Play</a>
+            <a th:if="${loggedIn}" onclick="playRandomGame();" id="play" class="button-link" >Play</a>
             <a th:if="${!loggedIn}" href="/login" class="button-link">Log in first!</a>
             <a th:if="${loggedIn}" href="/logout" class="button-link">Logout</a>
             <a href="#how-to-play-popup" class="button-link">How to Play?</a>
@@ -69,7 +69,7 @@
         var randomNumber = Math.floor(Math.random() * 96) + 1;
 
         // Construct the new URL
-        var newURL = '/game-board/' + randomNumber;
+        var newURL = '/game-board/' + [[${Id}]] + '/' + randomNumber;
 
         // Redirect to the new URL
         location.href = newURL;
