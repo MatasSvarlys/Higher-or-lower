@@ -1,13 +1,13 @@
 package Accenture.HigherOrLower.controller;
 
-import Accenture.HigherOrLower.model.Celebrity;
 import Accenture.HigherOrLower.model.Player;
 import Accenture.HigherOrLower.repository.PlayerRepository;
+import Accenture.HigherOrLower.service.GameService;
+import Accenture.HigherOrLower.service.impl.GameServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -17,12 +17,18 @@ public class PlayerController {
     @Autowired
     PlayerRepository playerRepository;
 
+    @Autowired
+    private GameServiceImpl gameServiceImpl;
+
     private boolean loggedIn;
     @GetMapping("/")
     public String showTopScores(Model model) {
         List<Player> topScores = playerRepository.getTop5Players();
         model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("Score", topScores);
+
+        gameServiceImpl.createGame();
+
         return "index";
     }
 
@@ -84,8 +90,15 @@ public class PlayerController {
 
     @GetMapping("/end/{pid}")
     public String getEnd(Model model,@PathVariable(name="pid") int pid) {
+
+
+        Player player = playerRepository.findById(pid);
+        player.setCurrentScore(gameServiceImpl.getCurrentScore());
         model.addAttribute("player", playerRepository.findById(pid));
-        playerRepository.findById(pid).resetCurrentScore();
+        //playerRepository.findById(pid).resetCurrentScore();//-1
+
+
+
 
 
         return "end";

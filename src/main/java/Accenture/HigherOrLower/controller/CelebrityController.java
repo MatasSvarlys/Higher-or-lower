@@ -4,6 +4,8 @@ import Accenture.HigherOrLower.model.Celebrity;
 import Accenture.HigherOrLower.model.Player;
 import Accenture.HigherOrLower.repository.CelebrityRepository;
 import Accenture.HigherOrLower.repository.PlayerRepository;
+import Accenture.HigherOrLower.service.GameService;
+import Accenture.HigherOrLower.service.impl.GameServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,9 @@ public class CelebrityController {
     private boolean[] usedLvId = new boolean[maxLv];
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private GameServiceImpl gameServiceImpl;
 
     @GetMapping("/celebrities")
     public List<Celebrity> getListOfCelebritiesByCountry(@RequestParam String countryCode) {
@@ -78,9 +83,15 @@ public class CelebrityController {
         Random rand = new Random();
         Boolean correctAnswer = false;
 
-        Player player = playerRepository.findById(pid);
-        player.setCurrentScore(player.getCurrentScore() + 1);
-        model.addAttribute("player", playerRepository.findById(pid));
+        model.addAttribute("score", gameServiceImpl.getCurrentScore());
+
+        gameServiceImpl.incrementCurrentScore();
+
+        /*//call here = 0
+        Player player = playerRepository.findById(pid); //0
+        player.setCurrentScore(player.getCurrentScore() + 1);//+1
+        model.addAttribute("score", player.getCurrentScore());
+        //model.addAttribute("player", playerRepository.findById(pid));*/
         model.addAttribute("playerId", pid);
 
         Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
