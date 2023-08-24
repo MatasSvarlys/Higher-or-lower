@@ -18,4 +18,6 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 //        Player getRandomPlayer();
 
 
+    Player findById(int id);
+
 }

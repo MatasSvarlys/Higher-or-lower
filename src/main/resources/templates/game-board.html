@@ -34,6 +34,7 @@
     <div class="not-known-celebrity">
       <div class="celebrity-info">
         <div id="not-known-celebrity-name"></div>
+        <li th:each="player : ${player}">
         <li th:each="celebrityRight : ${celebrityRight}">
           <span th:text="${celebrityRight.name}"></span>
         </li>
@@ -41,22 +42,23 @@
       </div>
       <div class="button-container">
         <div th:if="${answer}">
-          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Higher</a>
+          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/}  + ${playerId} + '/' + ${celebrityRightID} + '\''">Higher</a>
         </div>
         <div th:unless="${answer}">
-          <a class="buttons" onclick="location.href = '../';">Higher</a>
+          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/end/} + ${playerId} + '\''">Higher</a>
         </div>
       </div>
       <div class="button-container">
         <div th:if="${answer}">
-          <a class="buttons" onclick="location.href = '../';">Lower</a>
+          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/end/} + ${playerId} + '\''">Lower</a>
         </div>
         <div th:unless="${answer}">
-          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${celebrityRightID} + '\''">Lower</a>
+          <a class="buttons" th:attr="onclick='window.location.href=\'' + @{/game-board/} + ${playerId} + '/' + ${celebrityRightID} + '\''">Lower</a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>

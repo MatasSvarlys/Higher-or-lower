@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>End screen</title>
+</head>
+<body>
+    <li th:each="player : ${player}">
+        <span th:text="${player.name}"></span>
+        <span th:text="${player.currentScore}"></span>
+        <span th:text="${player.highscore}"></span>
+</body>
+</html>

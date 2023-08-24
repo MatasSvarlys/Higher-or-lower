@@ -6,10 +6,7 @@ import Accenture.HigherOrLower.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -83,5 +80,14 @@ public class PlayerController {
 
         // Redirect to the login page or home page
         return "redirect:/"; // or another appropriate URL
+    }
+
+    @GetMapping("/end/{pid}")
+    public String getEnd(Model model,@PathVariable(name="pid") int pid) {
+        model.addAttribute("player", playerRepository.findById(pid));
+        playerRepository.findById(pid).resetCurrentScore();
+
+
+        return "end";
     }
 }

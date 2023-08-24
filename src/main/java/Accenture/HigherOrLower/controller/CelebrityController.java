@@ -1,12 +1,15 @@
 package Accenture.HigherOrLower.controller;
 
 import Accenture.HigherOrLower.model.Celebrity;
+import Accenture.HigherOrLower.model.Player;
 import Accenture.HigherOrLower.repository.CelebrityRepository;
+import Accenture.HigherOrLower.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -23,6 +26,8 @@ public class CelebrityController {
     private int amountOfUnusedLv = maxLv;
     private boolean[] usedLtId = new boolean[maxLt];
     private boolean[] usedLvId = new boolean[maxLv];
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @GetMapping("/celebrities")
     public List<Celebrity> getListOfCelebritiesByCountry(@RequestParam String countryCode) {
@@ -68,45 +73,52 @@ public class CelebrityController {
         }
     }
 
-    @GetMapping("/game-board/{id}")
-    public String getGameBoard(Model model,  @PathVariable(name="id") int id){
+    @GetMapping("/game-board/{pid}/{cid}")
+    public String getGameBoard(Model model,@PathVariable(name="pid") int pid, @PathVariable(name="cid") int cid) {
         Random rand = new Random();
         Boolean correctAnswer = false;
-        int correctscore = 0;
-        model.addAttribute("celebrityLeft", celebrityRepository.findCelebrityById(id));
-        if(!Objects.equals(celebrityRepository.findCelebrityById(id).getCountry(), "LT")){
-            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LT");
-            int rand_intLT = rand.nextInt(96);
-            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLT));
-            model.addAttribute("celebrityRightID", rand_intLT);
-            if (celebrityRepository.findCelebrityById(rand_intLT).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
-                correctAnswer = true;
-                model.addAttribute("answer", correctAnswer);
 
-            }
-            else {
-                correctAnswer = false;
-            }
+        Player player = playerRepository.findById(pid);
+        player.setCurrentScore(player.getCurrentScore() + 1);
+        model.addAttribute("player", playerRepository.findById(pid));
+        model.addAttribute("playerId", pid);
 
+        Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
+        model.addAttribute("celebrityLeft", celebrityLeft);
 
-        }
-        else{
+        List<Celebrity> usedCelebrities = new ArrayList<>(); // List to track used celebrities
+        usedCelebrities.add(celebrityLeft); // Add celebrityLeft to the usedCelebrities list
 
-            List<Celebrity> celebrities = celebrityRepository.findCelebrityByCountry("LV");
-            int rand_intLV = rand.nextInt(96);
-            model.addAttribute("celebrityRight", celebrityRepository.findCelebrityById(rand_intLV));
-            model.addAttribute("celebrityRightID", rand_intLV);
-            if (celebrityRepository.findCelebrityById(rand_intLV).getGoogleSearchCount() >= celebrityRepository.findCelebrityById(id).getGoogleSearchCount()) {
-                correctAnswer = true;
-                model.addAttribute("answer", correctAnswer);
-            }
-            else {
-                correctAnswer = false;
-            }
+        // Fetch candidates based on the country of celebrityLeft
+        List<Celebrity> candidates;
+        if (!Objects.equals(celebrityLeft.getCountry(), "LT")) {
+            candidates = celebrityRepository.findCelebrityByCountry("LT");
+        } else {
+            candidates = celebrityRepository.findCelebrityByCountry("LV");
         }
 
+        // Remove used celebrities from candidates list
+        candidates.removeAll(usedCelebrities);
+
+        if (candidates.isEmpty()) {
+            // All available candidates are used, handle accordingly
+        } else {
+            int rand_intRight = rand.nextInt(candidates.size());
+            Celebrity celebrityRight = candidates.get(rand_intRight);
+
+            model.addAttribute("celebrityRight", celebrityRight);
+            model.addAttribute("celebrityRightID", celebrityRight.getId());
+
+            if (celebrityRight.getGoogleSearchCount() >= celebrityLeft.getGoogleSearchCount()) {
+                correctAnswer = true;
+                model.addAttribute("answer", correctAnswer);
+            } else {
+                correctAnswer = false;
+            }
+        }
 
         return "game-board";
     }
+
 
 }

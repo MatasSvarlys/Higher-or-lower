@@ -19,10 +19,23 @@ public class Player {
     private String password;
     @Transient
     private List<Integer> usedIdsInGame;
-    @Transient
+    //@Transient
+    @Column(name = "currentscore")
     private int currentScore;
 
     public Player() {
+    }
+
+    public void resetCurrentScore() {
+        this.currentScore = -1;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 
     public Player(int id, int age, String name){
