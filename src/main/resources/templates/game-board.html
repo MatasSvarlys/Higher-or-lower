@@ -15,6 +15,9 @@
          th:classappend="${celebrityLeft.country == 'LT' ? 'border-lt' : 'border-lv'}">
     <div class="known-celebrity">
       <div id="known-celebrity-name"></div>
+
+        <span th:text="${score}"></span>
+
       <li th:each="celebrityLeft : ${celebrityLeft}">
         <span th:text="${celebrityLeft.name}"></span>
       </li>
