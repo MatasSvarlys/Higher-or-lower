@@ -2,12 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>End screen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/styles/cssandjs/end2.css}" rel="stylesheet" />
+    <title>End Title</title>
 </head>
 <body>
-    <li th:each="player : ${player}">
-        <span th:text="${player.name}"></span>
-        <span th:text="${player.currentScore}"></span>
-        <span th:text="${player.highscore}"></span>
+<div class="background-image" src="static/styles/cssandjs/SINS.gif"></div>
+<div class="content-container">
+    <table class="scoreboard-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Current Score</th>
+            <th>Highscore</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="player : ${player}">
+            <td th:text="${player.name}"></td>
+            <td th:text="${player.currentScore}"></td>
+            <td th:text="${player.highscore}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

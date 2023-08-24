@@ -1,0 +1,92 @@
+         body {
+             font-family: Arial, sans-serif;
+             background-color: #f4f4f4;
+             margin-top: 150px;
+             padding: 0;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+         }
+
+           .scoreboard-table {
+               border-collapse: collapse;
+               background-color: #fff;
+               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+               width: 100%;
+               margin-top: 400px;
+               max-width: 900px;
+               justify-content: center;
+               align-items: center;
+
+           }
+
+
+
+
+                   .scoreboard-table th,
+                   .scoreboard-table td {
+                       padding: 12px 15px;
+                       text-align: center;
+                   }
+
+                   .scoreboard-table thead {
+                       background-color: #333;
+                       color: #fff;
+                   }
+
+                   .scoreboard-table th {
+                       font-weight: bold;
+                   }
+
+                   .scoreboard-table tbody tr:nth-child(even) {
+                       background-color: #f2f2f2;
+                   }
+
+                   .scoreboard-table tbody tr:hover {
+                       background-color: #ddd;
+                   }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        li span {
+            flex: 1;
+            padding: 5px;
+        }
+
+        li span:nth-child(2),
+        li span:nth-child(3) {
+            font-weight: bold;
+        }
+
+       .background-image {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-image: url('funnyGuyDancing.gif');
+           background-size: cover;
+           background-position: center;
+           background-repeat: no-repeat;
+           z-index: -1; /* Push the background behind other content */
+       }
+
+       .content-container {
+           position: relative;
+           z-index: 1; /* Bring the content above the background */
+       }
