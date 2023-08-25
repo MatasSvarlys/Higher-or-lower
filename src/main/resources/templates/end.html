@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/styles/cssandjs/end2.css}" rel="stylesheet" />
+    <link th:href="@{/styles/cssandjs/end.css}" rel="stylesheet" />
     <title>End Title</title>
+
+    <style>
+
+        .table-cell {
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+
+    </style>
 </head>
 <body>
 <div class="background-image" src="static/styles/cssandjs/SINS.gif"></div>
+
 <div class="content-container">
     <table class="scoreboard-table">
         <thead>
@@ -19,12 +30,16 @@
         </thead>
         <tbody>
         <tr th:each="player : ${player}">
-            <td th:text="${player.name}"></td>
-            <td th:text="${player.currentScore}"></td>
-            <td th:text="${player.highscore}"></td>
+            <td class="table-cell" th:text="${player.name}"></td>
+            <td class="table-cell" th:text="${player.currentScore}"></td>
+            <td class="table-cell" th:text="${player.highscore}"></td>
         </tr>
         </tbody>
     </table>
+
+    <!-- Modern Button -->
+    <a class="button" onclick="window.location.href = 'http://localhost:8080/';">Go Back</a>
 </div>
+
 </body>
 </html>
