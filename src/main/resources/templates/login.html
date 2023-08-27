@@ -9,17 +9,18 @@
     <body>
         <div class="login-block">
             <h2>Log in</h2>
-            <form id="login-form" th:action="@{/login}" method="post">
-                <input type="text" name="name" placeholder="Name" required /><br>
+            <form id="login-form" th:action="@{/login-custom}" method="post">
+                <input type="text" name="username" placeholder="Name" required /><br>
                 <input type="password" name="password" placeholder="Password" required /><br>
-                <a href="#" onclick="submitForm();" class="button-link">Log in</a><br>
+                <input type="submit" class="button-link"value="Log in" /><br>
             </form>
             <a href="/signup" class="button-link">Not a user?</a>
+            <div th:if="${param.error}">Invalid username and password.</div>
         </div>
     </body>
-    <script>
-        function submitForm() {
-            document.getElementById('login-form').submit();
-        }
-    </script>
+<!--    <script>-->
+<!--        function submitForm() {-->
+<!--            document.getElementById('login-form').submit();-->
+<!--        }-->
+<!--    </script>-->
 </html>
