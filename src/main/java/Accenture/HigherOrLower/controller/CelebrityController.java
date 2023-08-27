@@ -93,11 +93,6 @@ public class CelebrityController {
 
         gameServiceImpl.incrementCurrentScore();
 
-        /*//call here = 0
-        Player player = playerRepository.findById(pid); //0
-        player.setCurrentScore(player.getCurrentScore() + 1);//+1
-        model.addAttribute("score", player.getCurrentScore());
-        //model.addAttribute("player", playerRepository.findById(pid));*/
         model.addAttribute("playerId", pid);
 
         Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
