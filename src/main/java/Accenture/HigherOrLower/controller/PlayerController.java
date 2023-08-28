@@ -33,6 +33,7 @@ public class PlayerController {
         model.addAttribute("Score", topScores);
         if (loggedInPlayer != null) {
             model.addAttribute("Id", loggedInPlayer.getId());
+            model.addAttribute("Name", loggedInPlayer.getName());
         }
         else {
             model.addAttribute("Id", (-1));
