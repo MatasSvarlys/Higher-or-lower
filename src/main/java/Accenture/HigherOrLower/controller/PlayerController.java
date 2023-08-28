@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class PlayerController {
     private Player loggedInPlayer;
 
     private boolean loggedIn;
+
+
     @GetMapping("/")
     public String showTopScores(Model model) {
         List<Player> topScores = playerRepository.getTop5Players();
@@ -52,9 +55,9 @@ public class PlayerController {
 
     @GetMapping("/login")
     public String loginValidation(Model model){
-
         return "login";
     }
+
     @GetMapping("/signup")
     public String signupValidation(Model model){
 
@@ -62,15 +65,6 @@ public class PlayerController {
     }
     @PostMapping("/signup")
     public String signUp(@RequestParam String name, @RequestParam String password, @RequestParam int age) {
-        // Validate the input if needed
-        if (name == null || name.isEmpty() || password == null || password.isEmpty()) {
-            return "signup";
-        }
-
-        if (age < 7) {
-            return "signup";
-        }
-        // Create a new user entity
         Player newUser = new Player();
         newUser.setName(name);
         newUser.setPassword(password);
@@ -84,22 +78,19 @@ public class PlayerController {
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestParam String name, @RequestParam String password) {
-        Player player = playerRepository.findByName(name);
+    public String login(@RequestParam("name") String name, @RequestParam("password") String password, RedirectAttributes redirectAttributes) {
+        Player player = playerRepository.findByNameAndPassword(name, password);
 
-        if (player == null) {
-//            model.addAttribute("error", "Player not found");
-            return "login"; // Return to the login page with an error message
+        if (player != null) {
+            loggedIn = true;
+            loggedInPlayer = player;
+            return "redirect:/";
+        } else {
+            return "redirect:/login?error=UserNotFound";
         }
-
-        if (!player.getPassword().equals(password)) {
-            return "login"; // Return to the login page with an error message
-        }
-
-        loggedIn = true;
-        loggedInPlayer = player;
-        return "redirect:/";
     }
+
+
 
     @GetMapping("/logout")
     public String logOut() {

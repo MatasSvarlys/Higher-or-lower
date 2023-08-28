@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link th:href="@{/styles/cssandjs/login.css}" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="login-block">
-            <h2>Log in</h2>
-            <form id="login-form" th:action="@{/login}" method="post">
-                <input type="text" name="name" placeholder="Name" required /><br>
-                <input type="password" name="password" placeholder="Password" required /><br>
-                <a href="#" onclick="submitForm();" class="button-link">Log in</a><br>
-            </form>
-            <a href="/signup" class="button-link">Not a user?</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/styles/cssandjs/login.css}" rel="stylesheet">
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="login-block">
+    <h2>Log in</h2>
+    <form id="login-form" th:action="@{/login}" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Name" required>
+            <div class="invalid-feedback">Please provide a valid name.</div>
         </div>
-    </body>
-    <script>
-        function submitForm() {
-            document.getElementById('login-form').submit();
+        <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <div class="invalid-feedback">Please provide a valid password.</div>
+        </div>
+        <a href="#" onclick="submitForm();" class="button-link">Log in</a><br>
+    </form>
+    <a href="/signup" class="button-link">Not a user?</a>
+</div>
+</body>
+<script>
+    function submitForm() {
+        var form = document.getElementById("login-form");
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add("was-validated");
+        } else {
+            form.submit();
         }
-    </script>
+    }
+</script>
 </html>
