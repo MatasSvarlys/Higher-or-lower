@@ -79,10 +79,6 @@ public class CelebrityController {
     @GetMapping("/game-board/{pid}/{cid}")
     public String getGameBoard(Model model,@PathVariable(name="pid") int pid, @PathVariable(name="cid") int cid) {
         Random rand = new Random();
-        if(cid <= 0){
-            cid = (int) (Math.floor(Math.random() * 96) + 1);
-        }
-
         Boolean correctAnswer = false;
 
         if (!Objects.equals(celebrityRepository.findCelebrityById(cid).getCountry(), "LT")) {
@@ -96,7 +92,6 @@ public class CelebrityController {
         gameServiceImpl.incrementCurrentScore();
 
         model.addAttribute("playerId", pid);
-        model.addAttribute("Id", pid);
 
         Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
         model.addAttribute("celebrityLeft", celebrityLeft);
@@ -140,12 +135,10 @@ public class CelebrityController {
                 model.addAttribute("answer", correctAnswer);
             } else {
                 correctAnswer = false;
-                model.addAttribute("answer", correctAnswer);
             }
         }
 
         return "game-board";
     }
-
 
 }
