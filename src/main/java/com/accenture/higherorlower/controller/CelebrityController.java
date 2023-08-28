@@ -1,11 +1,9 @@
-package Accenture.HigherOrLower.controller;
+package com.accenture.higherorlower.controller;
 
-import Accenture.HigherOrLower.model.Celebrity;
-import Accenture.HigherOrLower.model.Player;
-import Accenture.HigherOrLower.repository.CelebrityRepository;
-import Accenture.HigherOrLower.repository.PlayerRepository;
-import Accenture.HigherOrLower.service.GameService;
-import Accenture.HigherOrLower.service.impl.GameServiceImpl;
+import com.accenture.higherorlower.model.Celebrity;
+import com.accenture.higherorlower.repository.CelebrityRepository;
+import com.accenture.higherorlower.repository.PlayerRepository;
+import com.accenture.higherorlower.service.impl.GameServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,6 +79,10 @@ public class CelebrityController {
     @GetMapping("/game-board/{pid}/{cid}")
     public String getGameBoard(Model model,@PathVariable(name="pid") int pid, @PathVariable(name="cid") int cid) {
         Random rand = new Random();
+        if(cid <= 0){
+            cid = (int) (Math.floor(Math.random() * 96) + 1);
+        }
+
         Boolean correctAnswer = false;
 
         if (!Objects.equals(celebrityRepository.findCelebrityById(cid).getCountry(), "LT")) {
@@ -94,6 +96,7 @@ public class CelebrityController {
         gameServiceImpl.incrementCurrentScore();
 
         model.addAttribute("playerId", pid);
+        model.addAttribute("Id", pid);
 
         Celebrity celebrityLeft = celebrityRepository.findCelebrityById(cid);
         model.addAttribute("celebrityLeft", celebrityLeft);
@@ -137,6 +140,7 @@ public class CelebrityController {
                 model.addAttribute("answer", correctAnswer);
             } else {
                 correctAnswer = false;
+                model.addAttribute("answer", correctAnswer);
             }
         }
 

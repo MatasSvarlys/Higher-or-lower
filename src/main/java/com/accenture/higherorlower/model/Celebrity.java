@@ -1,4 +1,4 @@
-package Accenture.HigherOrLower.model;
+package com.accenture.higherorlower.model;
 import jakarta.persistence.*;
 
 @Entity

@@ -9,18 +9,13 @@
     <body>
         <div class="signup-block">
             <h2>Sign up</h2>
-            <form id="signup-form" th:action="@{/signup}" method="post">
-                <input type="text" name="name" placeholder="Name" required /><br>
+            <form id="signup-form" th:action="@{/signup}" action="#" method="post">
+                <input type="text" name="name" placeholder="Username" class="form-control"/><br>
                 <input type="password" name="password" placeholder="Password" required /><br>
                 <input type="number" name="age" placeholder="Age" value="0" min="7" required /><br>
-                <a href="#" class="button-link" onclick="submitForm();">Create Account</a><br>
+                <button type="submit" class="btn btn-success">Create Account</button>
             </form>
-            <a href="/login" class="button-link">Already a user?</a>
+            <a th:href="@{/login}" class="button-link">Already a user?</a>
         </div>
     </body>
-    <script>
-        function submitForm() {
-            document.getElementById('signup-form').submit();
-        }
-    </script>
 </html>

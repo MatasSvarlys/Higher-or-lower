@@ -1,10 +1,10 @@
-package Accenture.HigherOrLower.service.impl;
+package com.accenture.higherorlower.service.impl;
 
-import Accenture.HigherOrLower.model.Celebrity;
-import Accenture.HigherOrLower.model.Game;
-import Accenture.HigherOrLower.repository.CelebrityRepository;
-import Accenture.HigherOrLower.repository.PlayerRepository;
-import Accenture.HigherOrLower.service.GameService;
+import com.accenture.higherorlower.model.Celebrity;
+import com.accenture.higherorlower.model.Game;
+import com.accenture.higherorlower.repository.CelebrityRepository;
+import com.accenture.higherorlower.repository.PlayerRepository;
+import com.accenture.higherorlower.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

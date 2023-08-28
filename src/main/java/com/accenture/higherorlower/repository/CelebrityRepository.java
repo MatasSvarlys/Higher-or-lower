@@ -1,6 +1,6 @@
-package Accenture.HigherOrLower.repository;
+package com.accenture.higherorlower.repository;
 
-import Accenture.HigherOrLower.model.Celebrity;
+import com.accenture.higherorlower.model.Celebrity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

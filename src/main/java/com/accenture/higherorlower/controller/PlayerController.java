@@ -1,13 +1,13 @@
-package Accenture.HigherOrLower.controller;
+package com.accenture.higherorlower.controller;
 
-import Accenture.HigherOrLower.model.Player;
-import Accenture.HigherOrLower.repository.PlayerRepository;
-import Accenture.HigherOrLower.service.GameService;
-import Accenture.HigherOrLower.service.impl.GameServiceImpl;
+import com.accenture.higherorlower.model.Player;
+import com.accenture.higherorlower.repository.PlayerRepository;
+import com.accenture.higherorlower.service.impl.GameServiceImpl;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,23 +27,28 @@ public class PlayerController {
 
 
     @GetMapping("/")
-    public String showTopScores(Model model, Authentication authentication) {
+    public String showTopScores(Model model, Authentication authentication, HttpSession session) {
         List<Player> topScores = playerRepository.getTop5Players();
         model.addAttribute("Score", topScores);
         //Make the authenticator go brr
         if (authentication != null && authentication.isAuthenticated()) {
-            Player loggedInPlayer = (Player) authentication.getPrincipal();
+            // Player loggedInPlayer = (Player) authentication.getPrincipal();
+            authentication.getName();
+            authentication.getDetails();
             model.addAttribute("loggedIn", true);
-            model.addAttribute("Id", loggedInPlayer.getId());
+            model.getAttribute("Id");
+           // model.addAttribute("Id", loggedInPlayer.getId());
         } else {
             model.addAttribute("loggedIn", false);
             model.addAttribute("Id", -1);
+            //session.setAttribute("username", null);
         }
         gameServiceImpl.createGame();
 
         return "index";
     }
-//    @GetMapping("/{pid}")
+
+    //    @GetMapping("/{pid}")
 //    public String getHomePage(Model model,@PathVariable(name="pid") int pid) {
 //        List<Player> topScores = playerRepository.getTop5Players();
 //        model.addAttribute("loggedIn", loggedIn);
@@ -54,28 +59,6 @@ public class PlayerController {
 //
 //        return "index";
 //    }
-
-//    @PostMapping("/signup")
-//    public String signUp(@RequestParam String name, @RequestParam String password, @RequestParam int age) {
-//        // Validate the input if needed
-//        if (name == null || name.isEmpty() || password == null || password.isEmpty() || age < 7 || age == 0) {
-//            return "signup";
-//        }
-//
-//        // Create a new user entity
-//        Player newUser = new Player();
-//        newUser.setName(name);
-//        newUser.setPassword(password);
-//        newUser.setAge(age);
-//
-//        // Save the user to the database
-//        playerRepository.save(newUser);
-//
-//        // Redirect to a success page or login page
-//        return "redirect:/login";
-//    }
-
-
 
 //    @GetMapping("/logout")
 //    public String logOut() {
@@ -99,6 +82,7 @@ public class PlayerController {
         }
 
         model.addAttribute("player", player);
+        model.addAttribute("answer", false);
         return "end";
     }
 }

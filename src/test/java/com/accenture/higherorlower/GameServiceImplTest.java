@@ -1,21 +1,14 @@
-package Accenture.HigherOrLower;
+package com.accenture.higherorlower;
 
-import Accenture.HigherOrLower.model.Celebrity;
-import Accenture.HigherOrLower.model.Game;
-import Accenture.HigherOrLower.repository.CelebrityRepository;
-import Accenture.HigherOrLower.repository.PlayerRepository;
-import Accenture.HigherOrLower.service.impl.GameServiceImpl;
+import com.accenture.higherorlower.model.Game;
+import com.accenture.higherorlower.repository.CelebrityRepository;
+import com.accenture.higherorlower.repository.PlayerRepository;
+import com.accenture.higherorlower.service.impl.GameServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static javax.management.Query.times;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Application.class)

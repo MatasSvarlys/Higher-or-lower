@@ -1,10 +1,10 @@
-package Accenture.HigherOrLower;
+package com.accenture.higherorlower;
 
-import Accenture.HigherOrLower.model.Celebrity;
-import Accenture.HigherOrLower.model.Game;
-import Accenture.HigherOrLower.repository.CelebrityRepository;
-import Accenture.HigherOrLower.repository.PlayerRepository;
-import Accenture.HigherOrLower.service.impl.GameServiceImpl;
+import com.accenture.higherorlower.model.Celebrity;
+import com.accenture.higherorlower.model.Game;
+import com.accenture.higherorlower.repository.CelebrityRepository;
+import com.accenture.higherorlower.repository.PlayerRepository;
+import com.accenture.higherorlower.service.impl.GameServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

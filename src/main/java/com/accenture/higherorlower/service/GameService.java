@@ -1,7 +1,6 @@
-package Accenture.HigherOrLower.service;
+package com.accenture.higherorlower.service;
 
-import Accenture.HigherOrLower.model.Celebrity;
-import org.springframework.stereotype.Service;
+import com.accenture.higherorlower.model.Celebrity;
 
 import java.util.List;
 
