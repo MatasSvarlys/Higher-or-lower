@@ -82,7 +82,7 @@ public class GameServiceImpl implements GameService {
             int randomId;
 
             do {
-                randomId = random.nextInt(48);
+                randomId = random.nextInt(49);
             } while (game.getUsedIdsLT().contains(randomId));
 
             return celebrityRepository.findCelebrityById(randomId * 2);
@@ -97,7 +97,7 @@ public class GameServiceImpl implements GameService {
             int randomId;
 
             do {
-                randomId = random.nextInt(48);
+                randomId = random.nextInt(49);
             } while (game.getUsedIdsLV().contains(randomId));
 
             return celebrityRepository.findCelebrityById((randomId * 2) + 1);

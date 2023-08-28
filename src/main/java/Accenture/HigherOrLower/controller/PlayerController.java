@@ -41,17 +41,6 @@ public class PlayerController {
 
         return "index";
     }
-//    @GetMapping("/{pid}")
-//    public String getHomePage(Model model,@PathVariable(name="pid") int pid) {
-//        List<Player> topScores = playerRepository.getTop5Players();
-//        model.addAttribute("loggedIn", loggedIn);
-//        model.addAttribute("Score", topScores);
-//        model.addAttribute("Id", pid);
-//
-//        gameServiceImpl.createGame();
-//
-//        return "index";
-//    }
 
     @GetMapping("/login")
     public String loginValidation(Model model){
