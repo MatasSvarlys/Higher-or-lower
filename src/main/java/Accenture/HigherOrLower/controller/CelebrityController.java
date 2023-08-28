@@ -22,61 +22,12 @@ public class CelebrityController {
 
     @Autowired
     CelebrityRepository celebrityRepository;
-    private final int maxLt = 48;
-    private final int maxLv = 48;
-    private int amountOfUnusedLt = maxLt;
-    private int amountOfUnusedLv = maxLv;
-    private boolean[] usedLtId = new boolean[maxLt];
-    private boolean[] usedLvId = new boolean[maxLv];
     @Autowired
     private PlayerRepository playerRepository;
 
     @Autowired
     private GameServiceImpl gameServiceImpl;
 
-    @GetMapping("/celebrities")
-    public List<Celebrity> getListOfCelebritiesByCountry(@RequestParam String countryCode) {
-        return celebrityRepository.findByCountryIgnoreCase(countryCode);
-    }
-    @GetMapping("/celebrities/searchCount")
-    public int getGoogleSearchCountByName(@RequestParam String name) {
-        return celebrityRepository.findGoogleSearchCountByName(name);
-    }
-
-    @GetMapping("gameLogic/getRandomCelebrity")
-    public Celebrity getRandomCelebrityByCountry(@RequestParam String countryCode){
-        List<Celebrity> c;
-        c = celebrityRepository.findByCountryIgnoreCase(countryCode);
-        if("LT".equalsIgnoreCase(countryCode)){
-            int randomIndex = new Random().nextInt(amountOfUnusedLt);
-            int i = 0;
-            while(i < randomIndex){
-                if(usedLtId[i])
-                    randomIndex++;
-
-                if(randomIndex > maxLt)
-                    return null; //should throw an error no more lt celebrities left
-                i++;
-            }
-            usedLtId[i] = true;
-            amountOfUnusedLt--;
-            return c.get(i);
-        } else {
-            int randomIndex = new Random().nextInt(amountOfUnusedLv);
-            int i = 0;
-            while (i < randomIndex) {
-                if (usedLvId[i])
-                    randomIndex++;
-
-                if (randomIndex >= maxLv)
-                    return null; // No more LV celebrities left, return an error
-                i++;
-            }
-            usedLvId[i] = true;
-            amountOfUnusedLv--;
-            return c.get(i);
-        }
-    }
 
     @GetMapping("/game-board/{pid}/{cid}")
     public String getGameBoard(Model model,@PathVariable(name="pid") int pid, @PathVariable(name="cid") int cid) {
